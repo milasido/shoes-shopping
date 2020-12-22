@@ -1,0 +1,38 @@
+.number {
+    margin: 100px;
+}
+
+.minus, .plus {
+    width: 34px;
+    height: 34px;
+    background: #f2f2f2;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+}
+
+input {
+    height: 34px;
+    width: 40px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.container {
+    padding-bottom: 65px;
+    /* padding-top: 70px; */
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}

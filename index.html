@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    
+    <title>SEVENSHOESSHOP</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="fo"></div>
+
+    <div class="formm">
+        <div class="title ">
+            <div>Seven<span>Shoes</span></div>
+        </div>
+        <br>
+        <div class="login">
+            <input id="username" type="text" placeholder="username" name="user" required><br><br>
+            <input id="password" type="password" placeholder="password" name="password" required><br>
+            <div style="color: white;">Hint: username and password must be the same</div>
+            <input type="button" value="Login" onclick="login()">
+
+        </div>
+    </div>
+
+
+    <script>
+        function login() {
+            var x = document.getElementById("username").value;
+            var y = document.getElementById("password").value;
+            if (x == y && x != "") {
+                if (x != sessionStorage.getItem("username")) { // if not last user
+                    sessionStorage.removeItem("cart"); //remove cart
+                    var cart = [];
+                    sessionStorage.setItem("cart", JSON.stringify(cart));
+                }
+                sessionStorage.setItem("username", x);
+                location.href = "./home/home.html";
+            }
+            else if (x != y)
+                alert("username and password must be the same");
+            else if (x == "" || y == "")
+                alert("username and password cannot be blank");
+
+        }
+    </script>
+</body>
+
+</html>

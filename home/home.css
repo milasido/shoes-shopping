@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+}
+
+body {
+  background-color: #1a1a1a !important;
+  font-family: Nunito;
+  color:rgb(168, 168, 168) !important;
+}
+
+/* ============ container ============= */
+.container{
+  padding-top: 50px; 
+  padding-bottom: 65px;
+}
+
+/* ============ video ============= */
+
+.video {
+  padding-top: 50px;
+  background-color: #1a1a1a;
+  text-align: center;
+  color: rgb(196, 187, 187);
+  font-family: Nunito;
+  width: 100%;
+}
+
+/* =========intro ============== */
+
+.intro {
+  padding-top: 30px;
+}
+
+.intro-left {
+  color: rgb(168, 168, 168);
+  text-align: center;
+}
+.intro-right{
+  text-align: center;
+}
+#im{
+  width: 100%;
+}
+
+/* ============ feature ========== */
+
+.features{
+  text-align: center !important;
+  padding-top: 20px;
+}
+.features table{
+  margin: 0 auto;
+}
+.features-card img{
+  height: 150px;
+}
+.features-card{
+  text-align: center;
+}
+
+/* ========FAQ================ */
+.faq {
+  width: 100%;
+  text-align: center;
+  padding-left: 15%;
+  padding-right: 15%;
+  color: white;
+}
+.faq h3, p{
+  color: white;
+  text-align: left;
+}
+.faq table{
+  color: white;
+}
+.faq table tr th{
+  font-size: x-large;
+}
+
+
+
+/* ============subscribe============ */
+.subscribe{
+  width: 100%;
+  text-align: center;
+  padding-top: 30px;
+}
+#subscribe-email{
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  border-bottom: white;
+  border-bottom: 1px;
+  width: 50%;
+}
+/* ============ footer =========== */
+

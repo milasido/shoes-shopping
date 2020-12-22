@@ -1,0 +1,328 @@
+<html>
+
+<head>
+    <script src="./cart.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="cart.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="../navbar/navbar.css">
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $("#footer").load("../footer/footer.html");
+        });
+        $(function () {
+            $("#navbar").load("../navbar/navbar.html");
+        });
+    </script>
+</head>
+
+
+<body>
+
+    <!-- navigation bar -->
+    <nav id="navbar" style="padding-bottom: 50px !important;"></nav>
+
+    <div class="container">
+
+        <div>
+            <div>
+                <h2 style="padding-top: 40px;">SHOPPING CART</h2>
+                <!--Grid row-->
+                <div class="row">
+
+
+                    <!--Grid column-->
+                    <div class="col-lg-8" id="display-cart">
+
+                        <!-- Card -->
+                        <div class="card wish-list mb-3">
+                            <div class="card-body">
+
+                                <h5 class="mb-4">Cart (<span id="count"></span> items)</h5>
+                                <script>
+                                    // function return cart count
+                                    function countCart() {
+                                        var count = 0;
+                                        if (sessionStorage.getItem("cart")) {
+                                            var cart = JSON.parse(sessionStorage.getItem("cart"));
+                                            cart.forEach(element => {
+                                                count = +count + +element.quantity;
+                                            });
+                                        }
+                                        return count;
+                                    }
+                                    document.getElementById("count").innerHTML = countCart();
+                                </script>
+
+                                <div class="row mb-4" v-for="x in todos">
+                                    <div class="col-md-5 col-lg-3 col-xl-3">
+                                        <div class="mb-3 mb-md-0">
+                                            <img class="img-fluid w-100" :src="x.img">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-lg-9 col-xl-9">
+                                        <div>
+                                            <div class="d-flex justify-content-between">
+                                                <div>
+                                                    <h5>{{x.name}}</h5>
+                                                    <p class="mb-2 text-muted text-uppercase small">{{x.sex}}</p>
+                                                    <p class="mb-3 text-muted text-uppercase small">Size: {{x.size}}</p>
+                                                </div>
+                                                <div>
+                                                    <div class="def-number-input number-input safari_only mb-0 w-100">
+                                                        <span @click="minusItem(x.name, x.size)" class="minus"
+                                                            style="cursor:pointer;">-</span>
+                                                        <input type="number" :value="x.quantity" disabled/>
+                                                        <span @click="plusItem(x.name, x.size)" class="plus"
+                                                            style="cursor: pointer;">+</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <a href="#!" type="button" @click="removeItem(x.name, x.size)"
+                                                        class="card-link-secondary small text-uppercase mr-3">
+                                                        <i class="fa fa-trash"></i> Remove item </a>
+                                                </div>
+                                                <p class="mb-0"><span><strong>${{x.price}}</strong></span></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    if (JSON.parse(sessionStorage.getItem("cart")) != "") {
+                                        document.write(`<p class="text-danger mb-0"><i class="fa fa-info-circle mr-1"></i> Due to high demand,
+                                        your items will be removed from cart in 30mins, do not hesitate to make purchase!
+                                        </p>`)
+                                    }
+                                    else {
+                                        document.write(`<p class="text-danger mb-0"><i class="fa fa-info-circle mr-1"></i> Your cart is empty. 
+                                        Please add items to make purchase!
+                                        </p>`)
+                                    }
+                                </script>
+
+                            </div>
+                        </div>
+                        <!-- Card -->
+
+                        <!-- Card -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <h5 class="mb-4">Expected shipping delivery</h5>
+
+                                <p class="mb-0"> Free: 3 - 7 bussiness days</p>
+                            </div>
+                        </div>
+                        <!-- Card -->
+
+                        <!-- Card -->
+                        <div class="card mb-3">
+                            <div class="card-body">
+
+                                <h5 class="mb-4">We accept</h5>
+
+                                <img class="mr-2 w-50"
+                                    src="https://help.zazzle.com/hc/article_attachments/360010513393/Logos-01.png">
+                            </div>
+                        </div>
+                        <!-- Card -->
+
+                    </div>
+                    <!--Grid column-->
+
+                    <!--Grid column-->
+                    <div class="col-lg-4">
+
+                        <!-- Card -->
+                        <div class="card mb-3" id="money">
+                            <div class="card-body">
+
+                                <h5 class="mb-3">The total amount of</h5>
+
+                                <ul class="list-group list-group-flush">
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        Subtotal
+                                        <span>${{sub}}</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center px-0 pb-0">
+                                        Shipping
+                                        <span>Free</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Tax (8.5%)
+                                        <span></span>${{tax}}</span>
+                                    </li>
+                                    <li
+                                        class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                        <div>
+                                            <strong>Total amount</strong>
+                                        </div>
+                                        <span><strong>${{total}}</strong></span>
+                                    </li>
+                                </ul>
+
+                                <button onclick="checkout()"
+                                    class="btn btn-primary btn-block waves-effect waves-light">Go to
+                                    checkout</button></a>
+                                <script>
+                                    function checkout() {
+                                        if (JSON.parse(sessionStorage.getItem("cart")) != "")
+                                            window.location.href = "../checkout/checkout.html";
+                                        else alert("Please add items into cart to make purchase!")
+                                    }
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--Grid column-->
+
+                </div>
+                <!--Grid row-->
+
+            </div>
+            <!--Section: Block Content-->
+
+            <script>
+                // update total function
+                function updateCart() {
+                    if (!sessionStorage.getItem("cart")) {
+                        var cart = [];
+                    }
+                    else {
+                        var cart = JSON.parse(sessionStorage.getItem("cart"));
+                        new Vue({
+                            el: "#display-cart",
+                            data: {
+                                todos: cart
+                            },
+                            methods: {
+                                removeItem(name, size) {
+                                    for (var i = 0; i < cart.length; i++) {
+                                        if (name == cart[i].name && size == cart[i].size) {
+                                            cart.splice(i, 1);
+                                            sessionStorage.setItem("cart", JSON.stringify(cart)); //update cart on storage
+                                            countCart();
+                                            location.reload();
+                                            break;
+                                        }
+                                    }
+                                },
+                                plusItem(name, size) {
+                                    for (var i = 0; i < cart.length; i++) {
+                                        if (name == cart[i].name && size == cart[i].size) {
+                                            cart[i].quantity++;
+                                            sessionStorage.setItem("cart", JSON.stringify(cart)); //update cart on storage
+                                            countCart();
+                                            updateTotal();
+                                            location.reload();
+                                            break;
+                                        }
+                                    }
+                                },
+                                minusItem(name, size) {
+                                    for (var i = 0; i < cart.length; i++) {
+                                        if (name == cart[i].name && size == cart[i].size) {
+                                            if (cart[i].quantity == 1) {
+                                                cart.splice(i, 1);
+                                            }
+                                            else {
+                                                cart[i].quantity--;
+                                            }
+                                            sessionStorage.setItem("cart", JSON.stringify(cart)); //update cart on storage
+                                            countCart();
+                                            updateTotal();
+                                            location.reload();
+                                            break;
+                                        }
+                                    }
+                                },
+                                // typeQuantity(name, size) {
+                                //     // if (event <= 0) {
+                                //     //     for (var i = 0; i < cart.length; i++) {
+                                //     //         if (name == cart[i].name && size == cart[i].size) {
+                                //     //             cart.splice(i, 1);
+                                //     //             sessionStorage.setItem("cart", JSON.stringify(cart)); //update cart on storage
+                                //     //             countCart();
+                                //     //             updateTotal();
+                                //     //             location.reload();
+                                //     //             break;
+                                //     //         }
+                                //     //     }
+                                //     // }
+                                //     // else 
+                                //     {
+                                //         for (var i = 0; i < cart.length; i++) {
+                                //             if (name == cart[i].name && size == cart[i].size) {
+                                //                 cart[i].quantity = this.num;
+                                //                 sessionStorage.setItem("cart", JSON.stringify(cart)); //update cart on storage
+                                //                 countCart();
+                                //                 updateTotal();
+                                //                 location.reload();
+                                //                 break;
+                                //             }
+                                //         }
+                                //     }
+                                // }
+                            }
+                        });
+
+                        function countCart() {
+                            var count = 0;
+                            if (sessionStorage.getItem("cart")) {
+                                var cart = JSON.parse(sessionStorage.getItem("cart"));
+                                cart.forEach(element => {
+                                    count = +count + +element.quantity;
+                                });
+                            }
+                            document.getElementById("cart-count").innerHTML = count;
+                        }
+
+
+                        function updateTotal() {
+                            var sub = 0;
+                            cart.forEach(element => {
+                                sub += element.quantity * element.price;
+                            });
+                            new Vue({
+                                el: "#money",
+                                data: {
+                                    sub: sub,
+                                    tax: sub * 8.25 / 100,
+                                    total: sub + sub * 8.25 / 100
+                                },
+                                methods: {
+                                    updateTotal() {
+                                        cart.forEach(element => {
+                                            sub += element.quantity * element.price;
+                                        });
+                                    }
+                                }
+                            });
+                        } updateTotal();
+                    }
+                }
+                updateCart();
+
+            </script>
+
+        </div>
+
+
+
+
+        <div id="footer"></div>
+</body>
+
+</html>
